@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+</head>
+<body>
+    <h3>nama : Rangga Alfarizzy</h3>
+    <h3>NIM : 20240140059</h3>
+
+    <p>
+        kota :
+        <span id="Lokasi"></span>
+    </p>
+
+    <hr>
+    <p>
+        Kordinat :
+        <span id="negara"></span>
+    </p>
+
+    <script>
+        fetch("/api/lokasi")
+            .then((response) => response.json())
+            .then((data) => {
+
+                console.log(data);
+
+                document.getElementById("Lokasi").innerHTML = data.kota;
+                document.getElementById("negara").innerHTML = data.koordinat;
+            })
+            .catch((error) => {
+                console.error( error);
+            });
+
+    </script>
+
+</body>
+</html>
