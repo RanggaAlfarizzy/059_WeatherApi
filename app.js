@@ -31,7 +31,7 @@ app.get("/api/lokasi/:kota", async (req, res) => {
             ?.find(x => x.id.startsWith("county"))?.text || "-";
 
         res.json({
-            kota: fitur.matching_text,
+            kota: fitur.text,
             negara: negara,
             provinsi: provinsi,
             kecamatan: kecamatan,
