@@ -17,11 +17,7 @@ app.get("/api/lokasi/:kota", async (req, res) => {
     try {
 
         const response = await axios.get(url);
-        const data = response.data;
-        const fitur = data.features[0];
-
-        const lokasi = fitur.matching_text;
-        const koordinat = fitur.geometry.coordinates;
+        const fitur = response.data.features[0];
 
         const negara = fitur.context
             ?.find(x => x.id.startsWith("country"))?.text || "-";
@@ -29,11 +25,15 @@ app.get("/api/lokasi/:kota", async (req, res) => {
         const provinsi = fitur.context
             ?.find(x => x.id.startsWith("region"))?.text || "-";
 
+        const kecamatan = fitur.context
+            ?.find(x => x.id.startsWith("county"))?.text || "-";
+
         res.json({
-            kota: lokasi,
+            kota: fitur.matching_text,
             negara: negara,
             provinsi: provinsi,
-            koordinat: koordinat
+            kecamatan: kecamatan,
+            koordinat: fitur.geometry.coordinates
         });
 
     } catch (error) {
