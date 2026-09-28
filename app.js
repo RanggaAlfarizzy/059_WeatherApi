@@ -19,6 +19,8 @@ app.get("/api/lokasi/:kota", async (req, res) => {
         const response = await axios.get(url);
         const fitur = response.data.features[0];
 
+        const [longitude, latitude] = fitur.geometry.coordinates;
+
         const negara = fitur.context
             ?.find(x => x.id.startsWith("country"))?.text || "-";
 
@@ -33,7 +35,8 @@ app.get("/api/lokasi/:kota", async (req, res) => {
             negara: negara,
             provinsi: provinsi,
             kecamatan: kecamatan,
-            koordinat: fitur.geometry.coordinates
+            longitude: longitude,
+            latitude: latitude
         });
 
     } catch (error) {
