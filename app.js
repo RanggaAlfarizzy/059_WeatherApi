@@ -15,21 +15,33 @@ app.get("/api/lokasi/:kota", async (req, res) => {
     const url = `https://api.maptiler.com/geocoding/${kota}.json?key=${apiKey}`;
 
     try {
+
         const response = await axios.get(url);
         const data = response.data;
+        const fitur = data.features[0];
 
-        const lokasi = data.features[0].matching_text;
-        const koordinat = data.features[0].geometry.coordinates;
+        const lokasi = fitur.matching_text;
+        const koordinat = fitur.geometry.coordinates;
+
+        const negara = fitur.context
+            ?.find(x => x.id.startsWith("country"))?.text || "-";
+
+        const provinsi = fitur.context
+            ?.find(x => x.id.startsWith("region"))?.text || "-";
 
         res.json({
             kota: lokasi,
+            negara: negara,
+            provinsi: provinsi,
             koordinat: koordinat
         });
 
     } catch (error) {
+
         res.status(500).json({
             message: "Gagal Mengambil data"
         });
+
     }
 });
 

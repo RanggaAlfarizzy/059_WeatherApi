@@ -12,15 +12,12 @@
     <input id="kota" placeholder="Masukkan kota">
     <button onclick="cari()">Cari</button>
 
-    <p>
-        Kota :
-        <span id="Lokasi"></span>
-    </p>
+    <hr>
 
-    <p>
-        Koordinat :
-        <span id="koordinat"></span>
-    </p>
+    <p>Kota : <span id="Lokasi">-</span></p>
+    <p>Negara : <span id="negara">-</span></p>
+    <p>Provinsi : <span id="provinsi">-</span></p>
+    <p>Koordinat : <span id="koordinat">-</span></p>
 
     <script>
 
@@ -32,6 +29,8 @@
             const data = await response.json();
 
             document.getElementById("Lokasi").innerHTML = data.kota;
+            document.getElementById("negara").innerHTML = data.negara;
+            document.getElementById("provinsi").innerHTML = data.provinsi;
             document.getElementById("koordinat").innerHTML = data.koordinat;
 
         }
